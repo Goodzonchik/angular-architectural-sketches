@@ -1,7 +1,7 @@
 export class RouteBaseService {
-  private routePath = "";
-  registry = "";
-  add = "";
+  private routePath = '';
+  registry = '';
+  add = '';
 
   constructor(routePath: string) {
     this.routePath = routePath;

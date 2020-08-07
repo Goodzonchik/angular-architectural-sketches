@@ -1,4 +1,4 @@
-export const organizationPath = "organization";
+export const organizationPath = 'organization';
 
 /*
 

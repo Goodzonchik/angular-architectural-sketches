@@ -1,0 +1,16 @@
+@import "../../../../styles/variables.scss";
+
+.header__item {
+  text-align: center;
+  font-size: 30px;
+  line-height: 100px;
+  margin: 0 1em;
+  padding: 0 1em;
+  text-decoration: none;
+  color: #3a3a3a;
+  font-weight: bold;
+
+  &:hover {
+    background-color: $gray-color-hover;
+  }
+}
