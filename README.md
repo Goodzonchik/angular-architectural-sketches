@@ -1,5 +1,7 @@
 # Переосмысление фронтенда
 
+![CI](https://github.com/Goodzonchik/angular-architectural-sketches/workflows/CI/badge.svg)
+
 ## Заменить NPM на Yarn
 
 Почему:
