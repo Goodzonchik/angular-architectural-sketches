@@ -4,12 +4,14 @@ import { RouterModule } from '@angular/router';
 import { HeaderComponent } from './layout/header/header.component';
 import { FooterComponent } from './layout/footer/footer.component';
 import { ContentComponent } from './layout/content/content.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-const toExport = [HeaderComponent, FooterComponent, ContentComponent];
+const toExportComponent = [HeaderComponent, FooterComponent, ContentComponent];
+const toExportModule = [CommonModule, RouterModule, FormsModule, ReactiveFormsModule];
 
 @NgModule({
-  declarations: [...toExport],
-  imports: [CommonModule, RouterModule],
-  exports: [CommonModule, RouterModule, ...toExport],
+  declarations: [...toExportComponent],
+  imports: [...toExportModule],
+  exports: [...toExportModule, ...toExportComponent],
 })
 export class SharedModule {}

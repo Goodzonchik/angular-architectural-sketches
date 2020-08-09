@@ -1,0 +1,13 @@
+<form [formGroup]="form">
+  <input formControlName="employeeCount" />
+  <br />
+  <input formControlName="subdivisionCount" />
+  <br />
+</form>
+
+<button *ngIf="!editable" class="button" (click)="edit()">Редактировать</button>
+
+<ng-container *ngIf="editable">
+  <button *ngIf="hasChange" class="button" (click)="cancel()">Отменить</button>
+  <button (click)="save()" class="button" [disabled]="!hasChange">Сохранить</button>
+</ng-container>

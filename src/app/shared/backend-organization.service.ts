@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { of } from 'rxjs';
+import { of, Observable } from 'rxjs';
 import { delay } from 'rxjs/operators';
 
 import { TodoAny } from '@utils';
@@ -9,16 +9,25 @@ import { TodoAny } from '@utils';
   providedIn: 'root',
 })
 export class BackendOrganizationService {
-  loadOrganization(): TodoAny {
-    return of({
-      shortName: 'Рога и Копыта',
-      fullName: 'ОАО Федеральная компания торговли сыповыми заготовками "Рога и Копыта"',
-      director: {
-        firstName: 'Иван',
-        secondName: 'Иванович',
-        lastName: 'Иванов',
-      },
-      createDate: new Date(1998, 4, 7),
-    }).pipe(delay(1000));
+  organization = {
+    shortName: 'Рога и Копыта',
+    fullName: 'ОАО Федеральная компания торговли сыповыми заготовками "Рога и Копыта"',
+    director: {
+      firstName: 'Иван',
+      secondName: 'Иванович',
+      lastName: 'Иванов',
+    },
+    createDate: new Date(1998, 4, 7),
+    employeeCount: 756,
+    subdivisionCount: 7,
+  };
+
+  loadOrganization(): Observable<TodoAny> {
+    return of(this.organization).pipe(delay(1000));
+  }
+
+  saveOrganization(organization: TodoAny): Observable<TodoAny> {
+    this.organization = organization;
+    return of(this.organization).pipe(delay(1000));
   }
 }

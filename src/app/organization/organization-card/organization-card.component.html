@@ -1,1 +1,24 @@
-{{ organization | json }}
+<div style="display: flex;">
+  <div style="width: 50%;">
+    <form [formGroup]="form">
+      <input formControlName="shortName" />
+      <br />
+      <input formControlName="fullName" />
+      <br />
+      <div [formGroup]="form.get('director')">
+        <input formControlName="firstName" />
+        <br />
+        <input formControlName="secondName" />
+        <br />
+        <input formControlName="lastName" />
+        <br />
+      </div>
+      <input formControlName="createDate" />
+    </form>
+    <button *ngIf="hasChange" class="button" (click)="cancel()">Отменить</button>
+    <button (click)="save()" class="button" [disabled]="!hasChange">Сохранить</button>
+  </div>
+  <div style="width: 50%;">
+    <organization-employee-and-subdivision></organization-employee-and-subdivision>
+  </div>
+</div>
