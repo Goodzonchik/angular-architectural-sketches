@@ -21,10 +21,13 @@ export class OrganizationService {
     });
   }
 
+  // Передаем организацию
+  // По необходимости можно выделить подсущности организации
   getOrganization() {
     return this.organizationSubject$.asObservable();
   }
 
+  // Также храним в сервисе состояние данных
   getOrganizationHasChange() {
     return this.hasMainChange$.asObservable();
   }
@@ -34,11 +37,14 @@ export class OrganizationService {
   }
 
   save(organizationRequest?: TodoAny) {
-    let request = organizationRequest;
-    if (!request) {
-      request = this.changedModel || this.organization;
-    }
-    this.backendOrganizationService.saveOrganization(request).subscribe((data: TodoAny) => {
+    // отправляемые данные отдельно выделены в константу/переменную - request
+    // в метод отправки данных отправляется только переменная
+    const savingData = Object.assign(
+      {},
+      this.changedModel || this.organization,
+      organizationRequest,
+    );
+    this.backendOrganizationService.saveOrganization(savingData).subscribe((data: TodoAny) => {
       this.afterSaving(data);
     });
   }
@@ -82,6 +88,8 @@ export class OrganizationService {
   }
 
   private checkEmployeeAndSubdevisionChange(): boolean {
+    console.log(this.changedModel.employeeCount, this.changedModel.subdivisionCount);
+    console.log(this.organization.employeeCount, this.organization.subdivisionCount);
     return (
       this.changedModel.employeeCount !== this.organization.employeeCount ||
       this.changedModel.subdivisionCount !== this.organization.subdivisionCount

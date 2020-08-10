@@ -23,11 +23,11 @@ export class BackendOrganizationService {
   };
 
   loadOrganization(): Observable<TodoAny> {
-    return of(this.organization).pipe(delay(1000));
+    return of(this.organization).pipe(delay(250));
   }
 
   saveOrganization(organization: TodoAny): Observable<TodoAny> {
     this.organization = organization;
-    return of(this.organization).pipe(delay(1000));
+    return of(this.organization).pipe(delay(250));
   }
 }

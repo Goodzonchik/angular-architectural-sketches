@@ -1,0 +1,7 @@
+@import '../variables.scss';
+
+.tooltip {
+  background-color: $alert-color;
+  color: #fff;
+  padding: 1em;
+}

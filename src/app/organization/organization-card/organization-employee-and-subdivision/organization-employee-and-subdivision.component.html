@@ -1,13 +1,24 @@
-<form [formGroup]="form">
-  <input formControlName="employeeCount" />
-  <br />
-  <input formControlName="subdivisionCount" />
-  <br />
+<form [formGroup]="form" class="count-form">
+  <div class="column">
+    <input class="input" formControlName="employeeCount" />
+  </div>
+  <div class="column">
+    <input class="input" formControlName="subdivisionCount" />
+  </div>
 </form>
 
-<button *ngIf="!editable" class="button" (click)="edit()">Редактировать</button>
+<div class="button-row button-row_right">
+  <button
+    *ngIf="!editable"
+    class="button"
+    (click)="edit()"
+    ngbTooltip="Если основные данные были изменены, то они будут сохранены после нажатия 'Редактировать'"
+  >
+    Редактировать
+  </button>
 
-<ng-container *ngIf="editable">
-  <button *ngIf="hasChange" class="button" (click)="cancel()">Отменить</button>
-  <button (click)="save()" class="button" [disabled]="!hasChange">Сохранить</button>
-</ng-container>
+  <ng-container *ngIf="editable">
+    <button *ngIf="hasChange" class="button button_cancel" (click)="cancel()">Отменить</button>
+    <button (click)="save()" class="button" [disabled]="!hasChange">Сохранить</button>
+  </ng-container>
+</div>

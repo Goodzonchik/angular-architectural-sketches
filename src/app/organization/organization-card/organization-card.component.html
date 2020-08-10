@@ -1,24 +1,27 @@
-<div style="display: flex;">
-  <div style="width: 50%;">
+<div class="card">
+  <div class="column">
     <form [formGroup]="form">
-      <input formControlName="shortName" />
+      <input class="input" formControlName="shortName" />
       <br />
-      <input formControlName="fullName" />
+      <input class="input" formControlName="fullName" />
       <br />
       <div [formGroup]="form.get('director')">
-        <input formControlName="firstName" />
+        <input class="input" formControlName="firstName" />
         <br />
-        <input formControlName="secondName" />
+        <input class="input" formControlName="secondName" />
         <br />
-        <input formControlName="lastName" />
+        <input class="input" formControlName="lastName" />
         <br />
       </div>
-      <input formControlName="createDate" />
+      <input class="input" formControlName="createDate" />
     </form>
-    <button *ngIf="hasChange" class="button" (click)="cancel()">Отменить</button>
-    <button (click)="save()" class="button" [disabled]="!hasChange">Сохранить</button>
+
+    <div class="button-row button-row_left">
+      <button *ngIf="hasChange" class="button button_cancel" (click)="cancel()">Отменить</button>
+      <button (click)="save()" class="button" [disabled]="!hasChange">Сохранить</button>
+    </div>
   </div>
-  <div style="width: 50%;">
+  <div class="column">
     <organization-employee-and-subdivision></organization-employee-and-subdivision>
   </div>
 </div>
