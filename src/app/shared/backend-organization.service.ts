@@ -5,6 +5,11 @@ import { delay } from 'rxjs/operators';
 
 import { TodoAny } from '@utils';
 
+/*
+Mock сервис, выполняет эмуляцию бэкенда, отдает и принимает данные
+Пристальное внимание не требуется
+*/
+
 @Injectable({
   providedIn: 'root',
 })

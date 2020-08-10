@@ -7,9 +7,11 @@ import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { HeaderComponent } from './layout/header/header.component';
 import { FooterComponent } from './layout/footer/footer.component';
-import { ContentComponent } from './layout/content/content.component';
+import { UserIconComponent } from './layout/header/user-icon/user-icon.component';
 
-const toExportComponent = [HeaderComponent, FooterComponent, ContentComponent];
+const toExportComponent = [HeaderComponent, FooterComponent];
+
+// Почти все модули относятся к Angular, они импортируются и экспортируются по необходимости
 const toExportModule = [
   CommonModule,
   RouterModule,
@@ -19,7 +21,7 @@ const toExportModule = [
 ];
 
 @NgModule({
-  declarations: [...toExportComponent],
+  declarations: [...toExportComponent, UserIconComponent],
   imports: [...toExportModule],
   exports: [...toExportModule, ...toExportComponent],
 })

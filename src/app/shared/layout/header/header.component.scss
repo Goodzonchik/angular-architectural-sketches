@@ -1,16 +1,45 @@
-@import "../../../../styles/variables.scss";
+@import '../../../../styles/variables.scss';
 
-.header__item {
-  text-align: center;
-  font-size: 30px;
-  line-height: 100px;
-  margin: 0 1em;
-  padding: 0 1em;
-  text-decoration: none;
-  color: #3a3a3a;
-  font-weight: bold;
+.header {
+  &__links {
+    border-right: 1px solid $gray-border-color;
+    border-left: 1px solid $gray-border-color;
+  }
 
-  &:hover {
+  &__link {
+    text-align: center;
+    font-size: 30px;
+    line-height: 100px;
+    margin: 0 1em;
+    padding: 0 1em;
+    text-decoration: none;
+    color: #3a3a3a;
+    font-weight: bold;
+
+    &:hover {
+      background-color: $gray-color-hover;
+    }
+  }
+
+  &__auth {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+
+    & :first-child {
+      margin-right: 1em;
+    }
+  }
+
+  &__auth-profile-icon {
     background-color: $gray-color-hover;
+    border-radius: 50%;
+    padding: 1em;
+  }
+
+  &__auth-button {
+    line-height: 20px;
+    height: 80px;
+    font-size: 25px;
   }
 }

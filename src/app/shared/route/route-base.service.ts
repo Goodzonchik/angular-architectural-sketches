@@ -1,3 +1,6 @@
+// Класс, которые из строки делает 2 пути и 2 метода
+// Можно расширить, добавив методы navigate, сразу для перехода
+
 export class RouteBaseService {
   private routePath = '';
   registry = '';

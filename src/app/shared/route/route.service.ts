@@ -9,11 +9,11 @@ import { RouteBaseService } from './route-base.service';
 export class RouteService {
   root = '/';
 
-  organization: TodoAny; // Конкретно здесь было лень вывести кокретный тип
-  employee: TodoAny; // Конкретно здесь было лень вывести кокретный тип
+  organization: RouteBaseService;
+  employee: TodoAny; // Конкретно здесь было лень вывести кокретный тип, TodoAny показывает, что нужно исправить
 
   constructor() {
-    this.organization = new RouteBaseService(organizationPath);
-    this.employee = new RouteBaseService('employee'); // Нет смысла выносить строку в константу или куда-нибудь еще
+    this.organization = new RouteBaseService(organizationPath); // organizationPath - используется в другом месте проекта (на самом деле нет, но можно предположить) и имеет смысл в ее выносе.
+    this.employee = new RouteBaseService('employee'); // Нет смысла выносить строку в константу или куда-нибудь еще, если она используется только здесь
   }
 }

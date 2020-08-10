@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { SharedModule } from '@shared/shared.module';
+import { SharedModule } from '@shared';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { OrganizationModule } from './organization/organization.module';
@@ -12,3 +12,6 @@ import { OrganizationModule } from './organization/organization.module';
   bootstrap: [AppComponent],
 })
 export class AppModule {}
+
+// AppModule импортируются модули Angular через SharedModule
+// BrowserModule - импортируется напрямую, потому что это единственное место, где он используется

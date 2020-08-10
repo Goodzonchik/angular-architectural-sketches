@@ -1,24 +1,31 @@
 import { Injectable } from '@angular/core';
-import { BackendOrganizationService } from '@shared/backend-organization.service';
 
 import { deepEqual } from 'fast-equals';
 
+import { BackendOrganizationService } from '../backend-organization.service';
 import { TodoAny } from '@utils';
 import { Subject } from 'rxjs';
 
+// Инжектируется по месту использования, а не в root.
 @Injectable()
 export class OrganizationService {
-  private organization: TodoAny;
-  private changedModel: TodoAny;
+  // Внутренний стейт-сущности
+  private organization: TodoAny; // Данные, которые меняются только при загрузке с бэка или при сохранении.
+  private changedModel: TodoAny; // Текущая измененная модель организации
+
+  // Subject для состояния
   private organizationSubject$ = new Subject();
   private hasMainChange$ = new Subject();
   private hasEmployeeAndSubdivisionChange$ = new Subject();
 
   constructor(private backendOrganizationService: BackendOrganizationService) {
+    // Загрузка данных с бэкенда
     this.backendOrganizationService.loadOrganization().subscribe((data: TodoAny) => {
       this.organization = data;
       this.organizationSubject$.next(this.organization);
     });
+
+    // Также можно сделать проверку, если добавление, то не загрузка данных, а подстановка изначальных значений
   }
 
   // Передаем организацию
@@ -44,15 +51,18 @@ export class OrganizationService {
       this.changedModel || this.organization,
       organizationRequest,
     );
+    // TODO если здесь необходимо добавить/удалить поле или смапить данные, то this.backendOrganizationService.saveOrganization(savingData) не будет затронуто
     this.backendOrganizationService.saveOrganization(savingData).subscribe((data: TodoAny) => {
       this.afterSaving(data);
     });
   }
 
+  // Метод нужен, если нужно из компонента выполнить какие-то действия после сохранения
   saveWithSubscribe() {
     return this.backendOrganizationService.saveOrganization(this.changedModel);
   }
 
+  // Метод вызывается после сохранения для обновления данных, а также используется как callback, если был использован метод .saveWithSubscribe()
   afterSaving(data: TodoAny) {
     this.organization = data;
     this.changedModel = this.organization;
@@ -61,6 +71,7 @@ export class OrganizationService {
     this.hasEmployeeAndSubdivisionChange$.next(this.checkEmployeeAndSubdevisionChange());
   }
 
+  // Обновляем данные модели
   updateOrganization(data: TodoAny) {
     if (data) {
       this.changedModel = Object.assign({}, this.changedModel, data);
@@ -75,11 +86,13 @@ export class OrganizationService {
     }
   }
 
+  // При отмене подставляем первоначальную версию сущности
   cancel(): void {
     this.updateOrganization(this.organization);
     this.organizationSubject$.next(this.organization);
   }
 
+  // Различные проверки, которые описывают состояние стейта-сущности
   private checkMainInfoChange(): boolean {
     return !deepEqual(
       this.getMainOrganizationInfo(this.organization),
@@ -88,8 +101,6 @@ export class OrganizationService {
   }
 
   private checkEmployeeAndSubdevisionChange(): boolean {
-    console.log(this.changedModel.employeeCount, this.changedModel.subdivisionCount);
-    console.log(this.organization.employeeCount, this.organization.subdivisionCount);
     return (
       this.changedModel.employeeCount !== this.organization.employeeCount ||
       this.changedModel.subdivisionCount !== this.organization.subdivisionCount
