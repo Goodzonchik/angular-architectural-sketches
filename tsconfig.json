@@ -17,8 +17,8 @@
     "paths": {
       "@shared/*": ["src/app/shared/*"],
       "@shared": ["src/app/shared"],
-      "@utils/*": ["src/app/shared/utils/*"],
-      "@utils": ["src/app/shared/utils"]
+      "@utils/*": ["src/app/utils/*"],
+      "@utils": ["src/app/utils"]
     }
   }
 }
