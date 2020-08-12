@@ -1,20 +1,28 @@
 <h1>Организация</h1>
-<div class="card">
-  <div class="column">
+<div class="card form">
+  <div class="form__column">
     <form [formGroup]="form">
-      <input class="input" formControlName="shortName" />
-      <br />
-      <input class="input" formControlName="fullName" />
-      <br />
-      <div [formGroup]="form.get('director')">
-        <input class="input" formControlName="firstName" />
-        <br />
-        <input class="input" formControlName="secondName" />
-        <br />
-        <input class="input" formControlName="lastName" />
-        <br />
+      <div class="form__column-row">
+        <input class="input" formControlName="shortName" />
       </div>
-      <input class="input" formControlName="createDate" />
+      <div class="form__column-row">
+        <input class="input" formControlName="fullName" />
+      </div>
+
+      <div [formGroup]="form.get('director')">
+        <div class="form__column-row">
+          <input class="input" formControlName="firstName" />
+        </div>
+        <div class="form__column-row">
+          <input class="input" formControlName="secondName" />
+        </div>
+        <div class="form__column-row">
+          <input class="input" formControlName="lastName" />
+        </div>
+      </div>
+      <div class="form__column-row">
+        <input class="input" formControlName="createDate" />
+      </div>
     </form>
 
     <div class="button-row button-row_left">
