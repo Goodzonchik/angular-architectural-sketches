@@ -8,7 +8,11 @@
     "test": "ng test",
     "lint": "ng lint",
     "lint:write": "ng lint -fix=true",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "gen:c": "ng generate component --skipTests=true --prefix=",
+    "gen:cs": "ng generate component --skipTests=true --prefix= -s=true",
+    "gen:s": "ng generate service --skipTests=true",
+    "analyze-bundle": "npx source-map-explorer *.js *.js.map"
   },
   "private": true,
   "dependencies": {

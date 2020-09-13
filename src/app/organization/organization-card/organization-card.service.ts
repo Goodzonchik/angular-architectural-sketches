@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 
 import { deepEqual } from 'fast-equals';
-
-import { BackendOrganizationService } from '../backend-organization.service';
-import { TodoAny } from '@utils';
 import { Subject } from 'rxjs';
+
+import { TodoAny } from '@utils';
+import { BackendOrganizationService } from '@shared';
 
 // Инжектируется по месту использования, а не в root.
 @Injectable()
-export class OrganizationService {
+export class OrganizationCardService {
   // Внутренний стейт-сущности
   private organization: TodoAny; // Данные, которые меняются только при загрузке с бэка или при сохранении.
   // в примере сотрудники и организации передаются в организации, в зависимости от ситуации их можно вынести в отдельный сервис.

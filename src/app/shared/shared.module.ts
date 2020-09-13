@@ -8,6 +8,7 @@ import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { HeaderComponent } from './layout/header/header.component';
 import { FooterComponent } from './layout/footer/footer.component';
 import { UserIconComponent } from './layout/header/user-icon/user-icon.component';
+import { ErrorComponent } from './error/error.component';
 
 const toExportComponent = [HeaderComponent, FooterComponent];
 
@@ -21,7 +22,7 @@ const toExportModule = [
 ];
 
 @NgModule({
-  declarations: [...toExportComponent, UserIconComponent],
+  declarations: [...toExportComponent, UserIconComponent, ErrorComponent],
   imports: [...toExportModule],
   exports: [...toExportModule, ...toExportComponent],
 })

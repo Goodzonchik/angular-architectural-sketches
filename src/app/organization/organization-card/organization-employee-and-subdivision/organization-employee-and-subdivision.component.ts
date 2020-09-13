@@ -1,10 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 
-import { OrganizationService } from '@shared';
-
 import { TodoAny } from '@utils';
 import { Subscription } from 'rxjs';
+import { OrganizationCardService } from '../organization-card.service';
 
 @Component({
   selector: 'organization-employee-and-subdivision',
@@ -20,7 +19,7 @@ export class OrganizationEmployeeAndSubdivisionComponent implements OnInit, OnDe
   private organization$: Subscription;
 
   constructor(
-    private organizationService: OrganizationService,
+    private organizationCardService: OrganizationCardService,
     private readonly formBuilder: FormBuilder,
   ) {
     this.form = this.formBuilder.group({
@@ -31,40 +30,42 @@ export class OrganizationEmployeeAndSubdivisionComponent implements OnInit, OnDe
     this.form.disable();
 
     // Подписались на изменения организации
-    this.organization$ = this.organizationService.getOrganization().subscribe((data: TodoAny) => {
-      this.form.patchValue(data);
-    });
+    this.organization$ = this.organizationCardService
+      .getOrganization()
+      .subscribe((data: TodoAny) => {
+        this.form.patchValue(data);
+      });
   }
 
   ngOnInit() {
-    this.organizationService.getOrganizationHasChange().subscribe((hasChange: TodoAny) => {
+    this.organizationCardService.getOrganizationHasChange().subscribe((hasChange: TodoAny) => {
       this.hasMainInfoChange = hasChange;
     });
-    this.organizationService
+    this.organizationCardService
       .getEmployeeAndSubdivisionHasChange()
       .subscribe((hasChange: TodoAny) => {
         this.hasChange = hasChange;
       });
 
     this.form.valueChanges.subscribe((formData: TodoAny) => {
-      this.organizationService.updateEmployeeAndSubdevision(formData);
+      this.organizationCardService.updateEmployeeAndSubdevision(formData);
     });
   }
 
   save() {
     // Аналогично методу save из компонента organization-card
-    this.organizationService.save();
+    this.organizationCardService.save();
   }
 
   cancel() {
     // Аналогично методу save из компонента organization-card
-    this.organizationService.cancel();
+    this.organizationCardService.cancel();
   }
 
   edit() {
     if (this.hasMainInfoChange) {
-      this.organizationService.saveWithSubscribe().subscribe((data) => {
-        this.organizationService.afterSaving(data);
+      this.organizationCardService.saveWithSubscribe().subscribe((data) => {
+        this.organizationCardService.afterSaving(data);
         this.editable = true;
         this.form.enable();
       });
