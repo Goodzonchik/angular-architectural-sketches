@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { InputErrorService } from '@shared/input-error/input-error.service';
 
 import { TodoAny } from '@utils';
 import { Subscription } from 'rxjs';
@@ -9,6 +10,7 @@ import { OrganizationCardService } from '../organization-card.service';
   selector: 'organization-employee-and-subdivision',
   templateUrl: './organization-employee-and-subdivision.component.html',
   styleUrls: ['./organization-employee-and-subdivision.component.scss'],
+  providers: [{ provide: InputErrorService, useExisting: OrganizationCardService }],
 })
 export class OrganizationEmployeeAndSubdivisionComponent implements OnInit, OnDestroy {
   form: FormGroup;
@@ -23,8 +25,8 @@ export class OrganizationEmployeeAndSubdivisionComponent implements OnInit, OnDe
     private readonly formBuilder: FormBuilder,
   ) {
     this.form = this.formBuilder.group({
-      employeeCount: [null],
-      subdivisionCount: [null],
+      employeeCount: [null, Validators.required],
+      subdivisionCount: [null, Validators.required],
     });
 
     this.form.disable();
@@ -35,6 +37,14 @@ export class OrganizationEmployeeAndSubdivisionComponent implements OnInit, OnDe
       .subscribe((data: TodoAny) => {
         this.form.patchValue(data);
       });
+  }
+
+  get subdivisionCountControl() {
+    return this.form.get('subdivisionCount');
+  }
+
+  get employeeCountControl() {
+    return this.form.get('employeeCount');
   }
 
   ngOnInit() {

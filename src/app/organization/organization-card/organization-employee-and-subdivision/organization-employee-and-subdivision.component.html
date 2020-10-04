@@ -1,9 +1,11 @@
 <form [formGroup]="form" class="count-form">
   <div class="column">
     <input class="input" formControlName="employeeCount" />
+    <input-error [control]="employeeCountControl" [expression]="editable"></input-error>
   </div>
   <div class="column">
     <input class="input" formControlName="subdivisionCount" />
+    <input-error [control]="subdivisionCountControl" [expression]="editable"></input-error>
   </div>
 </form>
 

@@ -19,6 +19,8 @@ export class OrganizationCardService {
   private hasMainChange$ = new Subject();
   private hasEmployeeAndSubdivisionChange$ = new Subject();
 
+  private showErrorSubject$ = new Subject<boolean>();
+
   constructor(private backendOrganizationService: BackendOrganizationService) {
     // Загрузка данных с бэкенда
     this.backendOrganizationService.loadOrganization().subscribe((data: TodoAny) => {
@@ -42,6 +44,10 @@ export class OrganizationCardService {
 
   getEmployeeAndSubdivisionHasChange() {
     return this.hasEmployeeAndSubdivisionChange$.asObservable();
+  }
+
+  getShowError() {
+    return this.showErrorSubject$.asObservable();
   }
 
   save(organizationRequest?: TodoAny) {
@@ -85,6 +91,7 @@ export class OrganizationCardService {
       this.changedModel = Object.assign({}, this.changedModel, data);
       this.hasEmployeeAndSubdivisionChange$.next(this.checkEmployeeAndSubdevisionChange());
     }
+    this.showErrorSubject$.next(!data.employeeCount || !data.subdivisionCount);
   }
 
   // При отмене подставляем первоначальную версию сущности
